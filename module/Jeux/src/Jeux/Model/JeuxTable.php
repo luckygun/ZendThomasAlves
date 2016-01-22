@@ -1,10 +1,10 @@
 <?php
 
-namespace Album\Model;
+namespace Jeux\Model;
 
  use Zend\Db\TableGateway\TableGateway;
 
- class AlbumTable
+ class JeuxTable
  {
      protected $tableGateway;
 
@@ -19,7 +19,7 @@ namespace Album\Model;
          return $resultSet;
      }
 
-     public function getAlbum($id)
+     public function getJeux($id)
      {
          $id  = (int) $id;
          $rowset = $this->tableGateway->select(array('id' => $id));
@@ -30,26 +30,26 @@ namespace Album\Model;
          return $row;
      }
 
-     public function saveAlbum(Album $album)
+     public function saveJeux(Jeux $jeux)
      {
          $data = array(
-             'artist' => $album->artist,
-             'title'  => $album->title,
+             'editeur' => $jeux->editeur,
+             'nom'  => $jeux->nom,
          );
 
-         $id = (int) $album->id;
+         $id = (int) $jeux->id;
          if ($id == 0) {
              $this->tableGateway->insert($data);
          } else {
-             if ($this->getAlbum($id)) {
+             if ($this->getJeux($id)) {
                  $this->tableGateway->update($data, array('id' => $id));
              } else {
-                 throw new \Exception('Album id does not exist');
+                 throw new \Exception('Jeux id does not exist');
              }
          }
      }
 
-     public function deleteAlbum($id)
+     public function deleteJeux($id)
      {
          $this->tableGateway->delete(array('id' => (int) $id));
      }

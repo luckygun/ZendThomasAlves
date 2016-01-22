@@ -269,6 +269,10 @@ table {
   .navbar {
     display: none;
   }
+  #plop {
+       text-decoration: blink;
+}
+
   .table td,
   .table th {
     background-color: #fff !important;

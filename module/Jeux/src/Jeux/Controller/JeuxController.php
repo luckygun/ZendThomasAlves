@@ -1,38 +1,38 @@
 <?php
-namespace Album\Controller;
+namespace Jeux\Controller;
 
  use Zend\Mvc\Controller\AbstractActionController;
  use Zend\View\Model\ViewModel;
- use Album\Model\Album;          // <-- Add this import
- use Album\Form\AlbumForm;
+ use Jeux\Model\Jeux;          // <-- Add this import
+ use Jeux\Form\JeuxForm;
 
- class AlbumController extends AbstractActionController
+ class JeuxController extends AbstractActionController
  {
-     protected $albumTable;
+     protected $jeuxTable;
      public function indexAction()
      {
          return new ViewModel(array(
-             'albums' => $this->getAlbumTable()->fetchAll(),
+             'jeuxs' => $this->getJeuxTable()->fetchAll(),
          ));
      }
 
      public function addAction()
      {
-                  $form = new AlbumForm();
+                  $form = new JeuxForm();
          $form->get('submit')->setValue('Add');
 
          $request = $this->getRequest();
          if ($request->isPost()) {
-             $album = new Album();
-             $form->setInputFilter($album->getInputFilter());
+             $jeux = new Jeux();
+             $form->setInputFilter($jeux->getInputFilter());
              $form->setData($request->getPost());
 
              if ($form->isValid()) {
-                 $album->exchangeArray($form->getData());
-                 $this->getAlbumTable()->saveAlbum($album);
+                 $jeux->exchangeArray($form->getData());
+                 $this->getJeuxTable()->saveJeux($jeux);
 
-                 // Redirect to list of albums
-                 return $this->redirect()->toRoute('album');
+                 // Redirect to list of jeuxs
+                 return $this->redirect()->toRoute('jeux');
              }
          }
          return array('form' => $form);
@@ -43,36 +43,36 @@ namespace Album\Controller;
      {
          $id = (int) $this->params()->fromRoute('id', 0);
          if (!$id) {
-             return $this->redirect()->toRoute('album', array(
+             return $this->redirect()->toRoute('jeux', array(
                  'action' => 'add'
              ));
          }
 
-         // Get the Album with the specified id.  An exception is thrown
+         // Get the Jeux with the specified id.  An exception is thrown
          // if it cannot be found, in which case go to the index page.
          try {
-             $album = $this->getAlbumTable()->getAlbum($id);
+             $jeux = $this->getJeuxTable()->getJeux($id);
          }
          catch (\Exception $ex) {
-             return $this->redirect()->toRoute('album', array(
+             return $this->redirect()->toRoute('jeux', array(
                  'action' => 'index'
              ));
          }
 
-         $form  = new AlbumForm();
-         $form->bind($album);
+         $form  = new JeuxForm();
+         $form->bind($jeux);
          $form->get('submit')->setAttribute('value', 'Edit');
 
          $request = $this->getRequest();
          if ($request->isPost()) {
-             $form->setInputFilter($album->getInputFilter());
+             $form->setInputFilter($jeux->getInputFilter());
              $form->setData($request->getPost());
 
              if ($form->isValid()) {
-                 $this->getAlbumTable()->saveAlbum($album);
+                 $this->getJeuxTable()->saveJeux($jeux);
 
-                 // Redirect to list of albums
-                 return $this->redirect()->toRoute('album');
+                 // Redirect to list of jeuxs
+                 return $this->redirect()->toRoute('jeux');
              }
          }
 
@@ -83,10 +83,11 @@ namespace Album\Controller;
      }
 
      public function deleteAction()
-     {
+     {  
+         
          $id = (int) $this->params()->fromRoute('id', 0);
          if (!$id) {
-             return $this->redirect()->toRoute('album');
+             return $this->redirect()->toRoute('jeux');
          }
 
          $request = $this->getRequest();
@@ -95,26 +96,29 @@ namespace Album\Controller;
 
              if ($del == 'Yes') {
                  $id = (int) $request->getPost('id');
-                 $this->getAlbumTable()->deleteAlbum($id);
+                 $this->getJeuxTable()->deleteJeux($id);
              }
 
-             // Redirect to list of albums
-             return $this->redirect()->toRoute('album');
+             // Redirect to list of jeuxs
+             return $this->redirect()->toRoute('jeux');
          }
 
          return array(
              'id'    => $id,
-             'album' => $this->getAlbumTable()->getAlbum($id)
+             'jeux' => $this->getJeuxTable()->getJeux($id)
          );
      }
      
-     public function getAlbumTable()
+     public function getJeuxTable()
      {
-         if (!$this->albumTable) {
+         if (!$this->jeuxTable) {
              $sm = $this->getServiceLocator();
-             $this->albumTable = $sm->get('Album\Model\AlbumTable');
+             $this->jeuxTable = $sm->get('Jeux\Model\JeuxTable');
          }
-         return $this->albumTable;
+         return $this->jeuxTable;
+     }
+     public function surpriseAction(){
+         
      }
  }
  ?>

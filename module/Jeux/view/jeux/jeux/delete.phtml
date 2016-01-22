@@ -1,0 +1,25 @@
+<?php
+ // module/Jeux/view/jeux/jeux/delete.phtml:
+
+ $nom = 'Delete jeux';
+ $this->headTitle($nom);
+ ?>
+ <h1><?php echo $this->escapeHtml($nom); ?></h1>
+
+ <p>Are you sure that you want to delete
+     '<?php echo $this->escapeHtml($jeux->nom); ?>' by
+     '<?php echo $this->escapeHtml($jeux->editeur); ?>'?
+ </p>
+ <?php
+ $url = $this->url('jeux', array(
+     'action' => 'delete',
+     'id'     => $this->id,
+ ));
+ ?>
+ <form action="<?php echo $url; ?>" method="post">
+ <div>
+     <input type="hidden" name="id" value="<?php echo (int) $jeux->id; ?>" />
+     <input type="submit" name="del" value="Yes" />
+     <input type="submit" name="del" value="No" />
+ </div>
+ </form>

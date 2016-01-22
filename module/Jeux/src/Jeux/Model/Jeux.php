@@ -1,24 +1,24 @@
 <?php
 
-namespace Album\Model;
+namespace Jeux\Model;
 
  use Zend\InputFilter\InputFilter;
  use Zend\InputFilter\InputFilterAwareInterface;
  use Zend\InputFilter\InputFilterInterface;
 
 
- class Album
+ class Jeux
  {
      public $id;
-     public $artist;
-     public $title;
+     public $editeur;
+     public $nom;
      protected $inputFilter;     
 
      public function exchangeArray($data)
      {
          $this->id     = (!empty($data['id'])) ? $data['id'] : null;
-         $this->artist = (!empty($data['artist'])) ? $data['artist'] : null;
-         $this->title  = (!empty($data['title'])) ? $data['title'] : null;
+         $this->editeur = (!empty($data['editeur'])) ? $data['editeur'] : null;
+         $this->nom  = (!empty($data['nom'])) ? $data['nom'] : null;
      }
      
      public function getArrayCopy()
@@ -46,7 +46,7 @@ namespace Album\Model;
              ));
 
              $inputFilter->add(array(
-                 'name'     => 'artist',
+                 'name'     => 'editeur',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),
@@ -65,7 +65,7 @@ namespace Album\Model;
              ));
 
              $inputFilter->add(array(
-                 'name'     => 'title',
+                 'name'     => 'nom',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),

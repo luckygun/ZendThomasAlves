@@ -1,0 +1,17 @@
+<?php
+ // module/Jeux/view/jeux/jeux/add.phtml:
+
+ $nom = 'Add new jeux';
+ $this->headTitle($nom);
+ ?>
+ <h1><?php echo $this->escapeHtml($nom); ?></h1>
+ <?php
+ $form->setAttribute('action', $this->url('jeux', array('action' => 'add')));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ echo $this->formHidden($form->get('id'));
+ echo $this->formRow($form->get('nom'));
+ echo $this->formRow($form->get('editeur'));
+ echo $this->formSubmit($form->get('submit'));
+ echo $this->form()->closeTag();

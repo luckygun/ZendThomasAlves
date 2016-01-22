@@ -2,6 +2,9 @@ body {
     padding-top: 60px;
     padding-bottom: 40px;
 }
+#plop {
+       text-decoration: blink;
+}
 
 .zf-green {
     color: #68b604;

@@ -1,8 +1,8 @@
 <?php
-namespace Album;
+namespace Jeux;
 
- use Album\Model\Album;
- use Album\Model\AlbumTable;
+ use Jeux\Model\Jeux;
+ use Jeux\Model\JeuxTable;
  use Zend\Db\ResultSet\ResultSet;
  use Zend\Db\TableGateway\TableGateway;
  use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
@@ -33,16 +33,16 @@ namespace Album;
      {
          return array(
              'factories' => array(
-                 'Album\Model\AlbumTable' =>  function($sm) {
-                     $tableGateway = $sm->get('AlbumTableGateway');
-                     $table = new AlbumTable($tableGateway);
+                 'Jeux\Model\JeuxTable' =>  function($sm) {
+                     $tableGateway = $sm->get('JeuxTableGateway');
+                     $table = new JeuxTable($tableGateway);
                      return $table;
                  },
-                 'AlbumTableGateway' => function ($sm) {
+                 'JeuxTableGateway' => function ($sm) {
                      $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                      $resultSetPrototype = new ResultSet();
-                     $resultSetPrototype->setArrayObjectPrototype(new Album());
-                     return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
+                     $resultSetPrototype->setArrayObjectPrototype(new Jeux());
+                     return new TableGateway('jeux', $dbAdapter, null, $resultSetPrototype);
                  },
              ),
          );

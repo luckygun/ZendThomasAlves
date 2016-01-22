@@ -1,15 +1,15 @@
 <?php
- // module/Album/view/album/album/edit.phtml:
+ // module/Jeux/view/jeux/jeux/edit.phtml:
 
- $title = 'Edit album';
- $this->headTitle($title);
+ $nom = 'Edit jeux';
+ $this->headTitle($nom);
  ?>
- <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <h1><?php echo $this->escapeHtml($nom); ?></h1>
 
  <?php
  $form = $this->form;
  $form->setAttribute('action', $this->url(
-     'album',
+     'jeux',
      array(
          'action' => 'edit',
          'id'     => $this->id,
@@ -19,7 +19,7 @@
 
  echo $this->form()->openTag($form);
  echo $this->formHidden($form->get('id'));
- echo $this->formRow($form->get('title'));
- echo $this->formRow($form->get('artist'));
+ echo $this->formRow($form->get('nom'));
+ echo $this->formRow($form->get('editeur'));
  echo $this->formSubmit($form->get('submit'));
  echo $this->form()->closeTag();
